@@ -35,4 +35,4 @@ The health check service has been added to the solution with a routing to `/heal
 
 ### Test
 
-The tests in PaymentsControllerTests.cs involving contacting the Bank Simulator expects the server to be started.
+The tests in PaymentsControllerTests.cs are using a mocked HttpClientFactory to simulate responses from the bank API.
