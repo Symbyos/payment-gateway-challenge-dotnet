@@ -9,6 +9,10 @@ public static class PaymentHelper
 {
     private const int CARD_NUM_MIN_LENGTH = 14;
     private const int CARD_NUM_MAX_LENGTH = 19;
+    private const int CVV_MIN_LENGTH = 3;
+    private const int CVV_MAX_LENGTH = 4;
+    private const int MONTH_MIN = 1;
+    private const int MONTH_MAX = 12;
 
     /// <summary>
     /// List of supported currencies iso codes.
@@ -54,7 +58,7 @@ public static class PaymentHelper
     /// <returns></returns>
     public static bool ValidateExpiryDate(this PostPaymentRequest ppr)
     {
-        if (ppr.ExpiryMonth >= 1 && ppr.ExpiryMonth <= 12 && ppr.ExpiryYear >= DateTime.UtcNow.Year)
+        if (ppr.ExpiryMonth >= MONTH_MIN && ppr.ExpiryMonth <= MONTH_MAX && ppr.ExpiryYear >= DateTime.UtcNow.Year)
         {
             // Value must be in the future
             // A card is valid until the end of the last day of the month
@@ -75,7 +79,7 @@ public static class PaymentHelper
     /// <returns></returns>
     public static bool ValidateCvv(this PostPaymentRequest ppr)
     {
-        if (ppr.Cvv.All(Char.IsDigit) && ppr.Cvv.Length <= 4 && ppr.Cvv.Length >= 3)
+        if (ppr.Cvv.All(Char.IsDigit) && ppr.Cvv.Length >= CVV_MIN_LENGTH && ppr.Cvv.Length <= CVV_MAX_LENGTH)
         {
             return true;
         }
